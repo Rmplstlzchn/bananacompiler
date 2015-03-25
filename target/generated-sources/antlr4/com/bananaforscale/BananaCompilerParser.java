@@ -19,7 +19,7 @@ public class BananaCompilerParser extends Parser {
 	public static final int
 		T__2=1, T__1=2, T__0=3, ZAHL=4, WHITE=5;
 	public static final String[] tokenNames = {
-		"<INVALID>", "'('", "')'", "'-'", "ZAHL", "WHITE"
+		"<INVALID>", "')'", "'-'", "'('", "ZAHL", "WHITE"
 	};
 	public static final int
 		RULE_start = 0, RULE_ausdruck = 1;
@@ -85,13 +85,13 @@ public class BananaCompilerParser extends Parser {
 	}
 
 	public static class AusdruckContext extends ParserRuleContext {
-		public List<AusdruckContext> ausdruck() {
-			return getRuleContexts(AusdruckContext.class);
-		}
+		public TerminalNode ZAHL() { return getToken(BananaCompilerParser.ZAHL, 0); }
 		public AusdruckContext ausdruck(int i) {
 			return getRuleContext(AusdruckContext.class,i);
 		}
-		public TerminalNode ZAHL() { return getToken(BananaCompilerParser.ZAHL, 0); }
+		public List<AusdruckContext> ausdruck() {
+			return getRuleContexts(AusdruckContext.class);
+		}
 		public AusdruckContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -123,11 +123,11 @@ public class BananaCompilerParser extends Parser {
 			{
 			setState(12);
 			switch (_input.LA(1)) {
-			case T__2:
+			case T__0:
 				{
-				setState(7); match(T__2);
+				setState(7); match(T__0);
 				setState(8); ausdruck(0);
-				setState(9); match(T__1);
+				setState(9); match(T__2);
 				}
 				break;
 			case ZAHL:
@@ -152,7 +152,7 @@ public class BananaCompilerParser extends Parser {
 					pushNewRecursionContext(_localctx, _startState, RULE_ausdruck);
 					setState(14);
 					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-					setState(15); match(T__0);
+					setState(15); match(T__1);
 					setState(16); ausdruck(4);
 					}
 					} 
@@ -191,9 +191,9 @@ public class BananaCompilerParser extends Parser {
 		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\7\31\4\2\t\2\4\3"+
 		"\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\17\n\3\3\3\3\3\3\3\7\3\24\n\3"+
 		"\f\3\16\3\27\13\3\3\3\2\3\4\4\2\4\2\2\30\2\6\3\2\2\2\4\16\3\2\2\2\6\7"+
-		"\5\4\3\2\7\3\3\2\2\2\b\t\b\3\1\2\t\n\7\3\2\2\n\13\5\4\3\2\13\f\7\4\2\2"+
+		"\5\4\3\2\7\3\3\2\2\2\b\t\b\3\1\2\t\n\7\5\2\2\n\13\5\4\3\2\13\f\7\3\2\2"+
 		"\f\17\3\2\2\2\r\17\7\6\2\2\16\b\3\2\2\2\16\r\3\2\2\2\17\25\3\2\2\2\20"+
-		"\21\f\5\2\2\21\22\7\5\2\2\22\24\5\4\3\6\23\20\3\2\2\2\24\27\3\2\2\2\25"+
+		"\21\f\5\2\2\21\22\7\4\2\2\22\24\5\4\3\6\23\20\3\2\2\2\24\27\3\2\2\2\25"+
 		"\23\3\2\2\2\25\26\3\2\2\2\26\5\3\2\2\2\27\25\3\2\2\2\4\16\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

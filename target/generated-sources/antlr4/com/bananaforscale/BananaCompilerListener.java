@@ -9,17 +9,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface BananaCompilerListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void enterStart(@NotNull BananaCompilerParser.StartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void exitStart(@NotNull BananaCompilerParser.StartContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link BananaCompilerParser#ausdruck}.
 	 * @param ctx the parse tree
 	 */
@@ -29,4 +18,15 @@ public interface BananaCompilerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link BananaCompilerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void enterStart(@NotNull BananaCompilerParser.StartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BananaCompilerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void exitStart(@NotNull BananaCompilerParser.StartContext ctx);
 }

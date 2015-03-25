@@ -17,19 +17,6 @@ public class BananaCompilerBaseListener implements BananaCompilerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(@NotNull BananaCompilerParser.StartContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStart(@NotNull BananaCompilerParser.StartContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -37,6 +24,19 @@ public class BananaCompilerBaseListener implements BananaCompilerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStart(@NotNull BananaCompilerParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart(@NotNull BananaCompilerParser.StartContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
