@@ -12,7 +12,8 @@ DECLARATION:	('new') VARIABLE ;
 DEFINITION:	    ('new')? VARIABLE '=' NUMBER ;
 
 MATHOPERATION:	OPERAND
-                | OPERAND BASICOPERATION OPERAND ;
+                | OPERAND BASICOPERATION OPERAND
+                ;
 
 BASICOPERATION:	'+'
                 | '-'
@@ -22,11 +23,13 @@ BASICOPERATION:	'+'
 
 OPERAND:	    VARIABLE
                 | NUMBER
-                | CONSTANT ;
+                | CONSTANT
+                ;
 
 CONSTANT:   	'PI'
                 | 'E'
-                | 'BFS' ;
+                | 'BFS'
+                ;
 
 NUMBER:		    [0-9]+ ;
 
