@@ -13,10 +13,10 @@ DEFINITION:	    ('new')? VARIABLE = NUMBER ;
 MATHOPERATION:	OPERAND
                 | OPERAND BASICOPERATION OPERAND ;
 
-BASICOPERATION:	'+'     #plus
-                | '-'   #minus
-                | '*'   #times
-                | '/'   #through
+BASICOPERATION:	'+'
+                | '-'
+                | '*'
+                | '/'
                 ;
 
 OPERAND:	    VARIABLE

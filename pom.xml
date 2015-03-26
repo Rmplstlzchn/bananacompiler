@@ -54,6 +54,9 @@
         <artifactId>antlr4-maven-plugin</artifactId>
         <version>${antlr4.version}</version>
           <configuration>
+              <arguments>
+                  <argument>-visitor</argument>
+              </arguments>
               <visitor>true</visitor>
           </configuration>
         <executions>
