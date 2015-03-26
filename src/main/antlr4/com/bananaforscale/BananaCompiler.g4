@@ -1,12 +1,13 @@
 grammar BananaCompiler;
 
-Start: § EXPRESSION ;
+prog: '§' EXPRESSION ;
 
 EXPRESSION: 	DECLARATION
                 | DEFINITION
-                | MATHOPERATION ;
+                | MATHOPERATION
+                ;
 
-DECLARATION:	'new' VARIABLE ;
+DECLARATION:	('new') VARIABLE ;
 
 DEFINITION:	    ('new')? VARIABLE = NUMBER ;
 
@@ -29,4 +30,4 @@ CONSTANT:   	'PI'
 
 NUMBER:		    [0-9]+ ;
 
-VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]*(,[0-9]+) ;
+VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;

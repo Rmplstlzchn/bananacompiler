@@ -1,4 +1,4 @@
-// Generated from com\bananaforscale\BananaCompiler.g4 by ANTLR 4.3
+// Generated from C:/Users/franzj/Documents/Software Engineering/BananaCompiler/src/main/antlr4/com/bananaforscale\BananaCompiler.g4 by ANTLR 4.5
 package com.bananaforscale;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -9,24 +9,13 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface BananaCompilerListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#ausdruck}.
+	 * Enter a parse tree produced by {@link BananaCompilerParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void enterAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx);
+	void enterProg(@NotNull BananaCompilerParser.ProgContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#ausdruck}.
+	 * Exit a parse tree produced by {@link BananaCompilerParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void exitAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void enterStart(@NotNull BananaCompilerParser.StartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void exitStart(@NotNull BananaCompilerParser.StartContext ctx);
+	void exitProg(@NotNull BananaCompilerParser.ProgContext ctx);
 }

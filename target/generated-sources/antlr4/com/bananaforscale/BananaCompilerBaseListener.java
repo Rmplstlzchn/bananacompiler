@@ -1,4 +1,4 @@
-// Generated from com\bananaforscale\BananaCompiler.g4 by ANTLR 4.3
+// Generated from C:/Users/franzj/Documents/Software Engineering/BananaCompiler/src/main/antlr4/com/bananaforscale\BananaCompiler.g4 by ANTLR 4.5
 package com.bananaforscale;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -17,26 +17,13 @@ public class BananaCompilerBaseListener implements BananaCompilerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx) { }
+	@Override public void enterProg(@NotNull BananaCompilerParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAusdruck(@NotNull BananaCompilerParser.AusdruckContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStart(@NotNull BananaCompilerParser.StartContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStart(@NotNull BananaCompilerParser.StartContext ctx) { }
+	@Override public void exitProg(@NotNull BananaCompilerParser.ProgContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
