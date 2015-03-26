@@ -11,12 +11,13 @@ import org.antlr.v4.runtime.tree.ParseTree;
  */
 public class App 
 {
-    public static void main( String[] args ) throws Exception {
+    public static void main(String[] args) throws Exception {
         ANTLRInputStream input = new ANTLRFileStream("code/demo.code");
         BananaCompilerLexer lexer = new BananaCompilerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         BananaCompilerParser parser = new BananaCompilerParser(tokens);
 
         ParseTree tree = parser.prog();
+        new BananaVisitor().visit(tree);
     }
 }
