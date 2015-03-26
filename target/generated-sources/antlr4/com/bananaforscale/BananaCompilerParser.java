@@ -17,8 +17,8 @@ public class BananaCompilerParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, EXPRESSION=2, DECLARATION=3, DEFINITION=4, MATHOPERATION=5, BASICOPERATION=6, 
-		OPERAND=7, CONSTANT=8, NUMBER=9, VARIABLE=10;
+		EXPRESSION=1, DECLARATION=2, DEFINITION=3, MATHOPERATION=4, BASICOPERATION=5, 
+		OPERAND=6, CONSTANT=7, NUMBER=8, VARIABLE=9;
 	public static final int
 		RULE_prog = 0;
 	public static final String[] ruleNames = {
@@ -26,11 +26,10 @@ public class BananaCompilerParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'§'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, "EXPRESSION", "DECLARATION", "DEFINITION", "MATHOPERATION", 
-		"BASICOPERATION", "OPERAND", "CONSTANT", "NUMBER", "VARIABLE"
+		null, "EXPRESSION", "DECLARATION", "DEFINITION", "MATHOPERATION", "BASICOPERATION", 
+		"OPERAND", "CONSTANT", "NUMBER", "VARIABLE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -109,8 +108,6 @@ public class BananaCompilerParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(2); 
-			match(T__0);
-			setState(3); 
 			match(EXPRESSION);
 			}
 		}
@@ -126,9 +123,8 @@ public class BananaCompilerParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\f\b\4\2\t\2\3\2\3"+
-		"\2\3\2\3\2\2\2\3\2\2\2\6\2\4\3\2\2\2\4\5\7\3\2\2\5\6\7\4\2\2\6\3\3\2\2"+
-		"\2\2";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\13\7\4\2\t\2\3\2"+
+		"\3\2\3\2\2\2\3\2\2\2\5\2\4\3\2\2\2\4\5\7\3\2\2\5\3\3\2\2\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

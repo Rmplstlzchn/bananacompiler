@@ -1,6 +1,6 @@
 grammar BananaCompiler;
 
-prog: '§' EXPRESSION ;
+prog: EXPRESSION ;
 
 EXPRESSION: 	DECLARATION
                 | DEFINITION
@@ -9,7 +9,7 @@ EXPRESSION: 	DECLARATION
 
 DECLARATION:	('new') VARIABLE ;
 
-DEFINITION:	    ('new')? VARIABLE = NUMBER ;
+DEFINITION:	    ('new')? VARIABLE '=' NUMBER ;
 
 MATHOPERATION:	OPERAND
                 | OPERAND BASICOPERATION OPERAND ;
