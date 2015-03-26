@@ -1,10 +1,32 @@
 grammar BananaCompiler;
 
-start: ausdruck;
-ausdruck: ausdruck '-' ausdruck
-	| '(' ausdruck ')'
-	| ZAHL
-	;
-	
-ZAHL: [1-9][0-9]* | [0];
-WHITE: [\r\n\t]+ -> skip;
+Start: § EXPRESSION ;
+
+EXPRESSION: 	DECLARATION
+                | DEFINITION
+                | MATHOPERATION ;
+
+DECLARATION:	'new' VARIABLE ;
+
+DEFINITION:	    ('new')? VARIABLE = NUMBER ;
+
+MATHOPERATION:	OPERAND
+                | OPERAND BASICOPERATION OPERAND ;
+
+BASICOPERATION:	'+'     #plus
+                | '-'   #minus
+                | '*'   #times
+                | '/'   #through
+                ;
+
+OPERAND:	    VARIABLE
+                | NUMBER
+                | CONSTANT ;
+
+CONSTANT:   	'PI'
+                | 'E'
+                | 'BFS' ;
+
+NUMBER:		    [0-9]+ ;
+
+VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]*(,[0-9]+) ;
