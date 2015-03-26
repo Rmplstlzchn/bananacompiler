@@ -19,6 +19,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <antlr4.version>4.5</antlr4.version>
   </properties>
 
   <dependencies>
@@ -31,7 +32,7 @@
 	<dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4</artifactId>
-      <version>4.5</version>
+      <version>${antlr4.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -51,7 +52,10 @@
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>4.3</version>
+        <version>${antlr4.version}</version>
+          <configuration>
+              <visitor>true</visitor>
+          </configuration>
         <executions>
           <execution>
             <id>antlr</id>
