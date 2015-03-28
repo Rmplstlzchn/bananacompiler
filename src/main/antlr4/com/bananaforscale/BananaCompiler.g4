@@ -15,10 +15,10 @@ MATHOPERATION:	OPERAND
                 | OPERAND BASICOPERATION OPERAND
                 ;
 
-BASICOPERATION:	'+'
-                | '-'
-                | '*'
-                | '/'
+BASICOPERATION:	'+' #Plus
+                | '-' #Minus
+                | '*' #Times
+                | '/' #Through
                 ;
 
 OPERAND:	    VARIABLE
