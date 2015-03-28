@@ -1,7 +1,0 @@
-com\bananaforscale\BananaCompilerParser.class
-com\bananaforscale\BananaCompilerBaseListener.class
-com\bananaforscale\App.class
-com\bananaforscale\BananaCompilerParser$AusdruckContext.class
-com\bananaforscale\BananaCompilerParser$StartContext.class
-com\bananaforscale\BananaCompilerListener.class
-com\bananaforscale\BananaCompilerLexer.class
