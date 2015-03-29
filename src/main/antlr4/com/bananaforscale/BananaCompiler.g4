@@ -2,9 +2,9 @@ grammar BananaCompiler;
 
 prog: expression ;
 
-expression: 	declaration
-                | definition
-                | mathoperation
+expression: 	declaration #declare
+                | definition #define
+                | mathoperation #calc
                 ;
 
 declaration:	('new') VARIABLE ;
@@ -15,15 +15,15 @@ mathoperation:	operand
                 | lval=operand basicoperand rval=operand
                 ;
 
-basicoperand:	'+'
-                | '-'
-                | '*'
-                | '/'
+basicoperand:	'+' #Plus
+                | '-' #Minus
+                | '*' #Times
+                | '/' #Through
                 ;
 
-operand:	    VARIABLE
-                | NUMBER
-                | CONSTANT
+operand:	    VARIABLE #var
+                | NUMBER #num
+                | CONSTANT #const
                 ;
 
 CONSTANT:   	'PI'
