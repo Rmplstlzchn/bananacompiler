@@ -31,8 +31,13 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     @Override
-    public String visitNum(@NotNull BananaCompilerParser.NumContext ctx) {
-        return ctx.getText();
+     public String visitNum(@NotNull BananaCompilerParser.NumContext ctx) {
+        return ("LDC "+ctx.getText());
+    }
+
+    @Override
+    public String visitPlus(@NotNull BananaCompilerParser.PlusContext ctx) {
+        return "IADD";
     }
 
     @Override
