@@ -17,12 +17,17 @@ public class App
             input = new ANTLRFileStream(args[0]);
         else
             input = new ANTLRFileStream("code/demo.code");
+        System.out.println(compile(input));
+    }
+
+
+    public static String compile(ANTLRInputStream input) {
         BananaCompilerLexer lexer = new BananaCompilerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         BananaCompilerParser parser = new BananaCompilerParser(tokens);
 
         ParseTree tree = parser.prog();
-        System.out.println(createJasminFile((new BananaVisitor().visit(tree))));
+        return createJasminFile((new BananaVisitor().visit(tree)));
     }
 
     private static String createJasminFile(String instructions) {

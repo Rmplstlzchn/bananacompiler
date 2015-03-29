@@ -1,6 +1,6 @@
 grammar BananaCompiler;
 
-prog: expression ;
+prog: expression+;
 
 expression: 	declaration #declare
                 | definition #define
