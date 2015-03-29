@@ -49,8 +49,29 @@ public class AppTest
     @DataProvider
     public Object[][] provide_code_expectedText() {
         return new Object[][] {
-                {"1+2", "3" + System.lineSeparator()},
-                {"1+2+42", "45" + System.lineSeparator()}
+                {"§ 1+2", "3" + System.lineSeparator()},
+                {"§ 1+x", "4" + System.lineSeparator()},            //x=2
+                {"§ 1+y", "Error" + System.lineSeparator()},        //y not defined
+                {"§ 1+2+42", "Error" + System.lineSeparator()},      //only two operands allowed
+                {"§ 2-1", "1" + System.lineSeparator()},
+                {"§ 5-x", "3" + System.lineSeparator()},            //x=2
+                {"§ x-5", "3" + System.lineSeparator()},            //x=2
+                {"§ 5-y", "Error" + System.lineSeparator()},        //y not defined
+                {"§ y-5", "Error" + System.lineSeparator()},        //y not defined
+                {"§ 42-2-1", "Error" + System.lineSeparator()},      //only two operands allowed
+                {"§ 1*2", "2" + System.lineSeparator()},
+                {"§ 1*x", "2" + System.lineSeparator()},            //x=2
+                {"§ x*1", "2" + System.lineSeparator()},            //x=2
+                {"§ 1*y", "Error" + System.lineSeparator()},        //y not defined
+                {"§ y*1", "Error" + System.lineSeparator()},        //y not defined
+                {"§ 1*2*42", "Error" + System.lineSeparator()},     //only two operands allowed
+                {"§ 2/1", "2" + System.lineSeparator()},
+                {"§ 2/0", "Error" + System.lineSeparator()},        //division by zero is not allowed
+                {"§ 4/x", "2" + System.lineSeparator()},            //x=2
+                {"§ x/4", "2" + System.lineSeparator()},            //x=2
+                {"§ 4/y", "Error" + System.lineSeparator()},        //y not defined
+                {"§ y/4", "Error" + System.lineSeparator()},        //y not defined
+                {"§ 42/2/1", "Error" + System.lineSeparator()},      //only two operands allowed
         };
     }
 
