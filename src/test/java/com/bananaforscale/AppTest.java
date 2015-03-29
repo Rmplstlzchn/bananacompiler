@@ -49,8 +49,8 @@ public class AppTest
     @DataProvider
     public Object[][] provide_code_expectedText() {
         return new Object[][] {
-                {"1+2", "3" + System.lineSeparator()},
-                {"1+2+42", "45" + System.lineSeparator()}
+                {"§1+2", "3" + System.lineSeparator()},
+                {"§1+2+42", "45" + System.lineSeparator()}
         };
     }
 

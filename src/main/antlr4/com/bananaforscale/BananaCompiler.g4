@@ -1,19 +1,18 @@
 grammar BananaCompiler;
 
-prog: programmpart+;
+prog: programmpart;
 
-programmpart:   '§' expression # Statements
+programmpart:   expression ;
+
+expression: 	declaration #Declare
+                | definition #Define
+                | mathoperation #Calc
                 ;
 
-expression: 	declaration #declare
-                | definition #define
-                | mathoperation #calc
-                ;
+declaration:	'#' lval=VARIABLE ;
 
-declaration:	'#' VARIABLE ;
+definition:	    declr='#'? lval=VARIABLE '=' rval=NUMBER ;
 
-definition:	    '#'? lval=VARIABLE '=' rval=NUMBER ;
-   
 mathoperation:	operand
                 | midoperation
                 ;
@@ -26,18 +25,10 @@ midoperator:    '+' #Plus
                 | '/' #Through
                 ;
 
-operand:	    VARIABLE #var
-                | NUMBER #num
-                | CONSTANT #const
-                ;
-
-CONSTANT:   	'PI'
-                | 'E'
-                | 'BFS'
+operand:	    VARIABLE #Var
+                | NUMBER #Num
                 ;
 
 NUMBER:		    [0-9]+ ;
-
 VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;
-
 WHITESPACE:     [ \t\n\r]+ -> skip;
