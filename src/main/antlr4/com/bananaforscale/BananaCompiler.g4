@@ -1,6 +1,9 @@
 grammar BananaCompiler;
 
-prog: expression+;
+prog: programmpart+;
+
+programmpart:   '§' expression # Statements
+                ;
 
 expression: 	declaration #declare
                 | definition #define
