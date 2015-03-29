@@ -13,7 +13,7 @@ expression: 	declaration #declare
 declaration:	'#' VARIABLE ;
 
 definition:	    '#'? lval=VARIABLE '=' rval=NUMBER ;
-
+   
 mathoperation:	operand
                 | midoperation
                 ;
