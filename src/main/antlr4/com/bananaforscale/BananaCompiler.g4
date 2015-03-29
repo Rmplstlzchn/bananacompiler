@@ -7,9 +7,9 @@ expression: 	declaration #declare
                 | mathoperation #calc
                 ;
 
-declaration:	('new') VARIABLE ;
+declaration:	'#' VARIABLE ;
 
-definition:	    ('new')? lval=VARIABLE '=' rval=NUMBER ;
+definition:	    '#'? lval=VARIABLE '=' rval=NUMBER ;
 
 mathoperation:	operand
                 | lval=operand basicoperand rval=operand
@@ -34,3 +34,5 @@ CONSTANT:   	'PI'
 NUMBER:		    [0-9]+ ;
 
 VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;
+
+WHITESPACE:     [ \t\n\r]+ -> skip;

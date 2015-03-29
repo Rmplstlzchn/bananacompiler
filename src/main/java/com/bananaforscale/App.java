@@ -12,12 +12,29 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class App 
 {
     public static void main(String[] args) throws Exception {
-        ANTLRInputStream input = new ANTLRFileStream("code/demo.code");
+        ANTLRInputStream input;
+        if (args.length > 0)
+            input = new ANTLRFileStream(args[0]);
+        else
+            input = new ANTLRFileStream("code/demo.code");
         BananaCompilerLexer lexer = new BananaCompilerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         BananaCompilerParser parser = new BananaCompilerParser(tokens);
 
         ParseTree tree = parser.prog();
-        new BananaVisitor().visit(tree);
+        System.out.println(createJasminFile((new BananaVisitor().visit(tree))));
+    }
+
+    private static String createJasminFile(String instructions) {
+        return ".class public Test\n" +
+                ".super java/lang/Object\n" +
+                ".method public static main([Ljava/lang/String;)V\n" +
+                ".limit stack 100\n" +
+                ".limit locals 100\n" +
+                "getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
+                instructions + "\n" +
+                "invokevirtual java/io/PrintStream/println(I)V\n" +
+                "return\n" +
+                ".end method";
     }
 }

@@ -7,7 +7,8 @@ T__5=6
 CONSTANT=7
 NUMBER=8
 VARIABLE=9
-'new'=1
+WHITESPACE=10
+'#'=1
 '='=2
 '+'=3
 '-'=4

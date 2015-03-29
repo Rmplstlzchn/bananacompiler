@@ -29,13 +29,37 @@ public class BananaCompilerBaseListener implements BananaCompilerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(@NotNull BananaCompilerParser.ExpressionContext ctx) { }
+	@Override public void enterDeclare(@NotNull BananaCompilerParser.DeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(@NotNull BananaCompilerParser.ExpressionContext ctx) { }
+	@Override public void exitDeclare(@NotNull BananaCompilerParser.DeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDefine(@NotNull BananaCompilerParser.DefineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefine(@NotNull BananaCompilerParser.DefineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCalc(@NotNull BananaCompilerParser.CalcContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCalc(@NotNull BananaCompilerParser.CalcContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -77,25 +101,85 @@ public class BananaCompilerBaseListener implements BananaCompilerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx) { }
+	@Override public void enterPlus(@NotNull BananaCompilerParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx) { }
+	@Override public void exitPlus(@NotNull BananaCompilerParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperand(@NotNull BananaCompilerParser.OperandContext ctx) { }
+	@Override public void enterMinus(@NotNull BananaCompilerParser.MinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperand(@NotNull BananaCompilerParser.OperandContext ctx) { }
+	@Override public void exitMinus(@NotNull BananaCompilerParser.MinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTimes(@NotNull BananaCompilerParser.TimesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTimes(@NotNull BananaCompilerParser.TimesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterThrough(@NotNull BananaCompilerParser.ThroughContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitThrough(@NotNull BananaCompilerParser.ThroughContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVar(@NotNull BananaCompilerParser.VarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVar(@NotNull BananaCompilerParser.VarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNum(@NotNull BananaCompilerParser.NumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNum(@NotNull BananaCompilerParser.NumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConst(@NotNull BananaCompilerParser.ConstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConst(@NotNull BananaCompilerParser.ConstContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

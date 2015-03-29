@@ -19,15 +19,41 @@ public interface BananaCompilerListener extends ParseTreeListener {
 	 */
 	void exitProg(@NotNull BananaCompilerParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#expression}.
+	 * Enter a parse tree produced by the {@code declare}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(@NotNull BananaCompilerParser.ExpressionContext ctx);
+	void enterDeclare(@NotNull BananaCompilerParser.DeclareContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#expression}.
+	 * Exit a parse tree produced by the {@code declare}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(@NotNull BananaCompilerParser.ExpressionContext ctx);
+	void exitDeclare(@NotNull BananaCompilerParser.DeclareContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code define}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefine(@NotNull BananaCompilerParser.DefineContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code define}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefine(@NotNull BananaCompilerParser.DefineContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code calc}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCalc(@NotNull BananaCompilerParser.CalcContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code calc}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCalc(@NotNull BananaCompilerParser.CalcContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BananaCompilerParser#declaration}.
 	 * @param ctx the parse tree
@@ -59,23 +85,87 @@ public interface BananaCompilerListener extends ParseTreeListener {
 	 */
 	void exitMathoperation(@NotNull BananaCompilerParser.MathoperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#basicoperand}.
+	 * Enter a parse tree produced by the {@code Plus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 */
-	void enterBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx);
+	void enterPlus(@NotNull BananaCompilerParser.PlusContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#basicoperand}.
+	 * Exit a parse tree produced by the {@code Plus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 */
-	void exitBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx);
+	void exitPlus(@NotNull BananaCompilerParser.PlusContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BananaCompilerParser#operand}.
+	 * Enter a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperand(@NotNull BananaCompilerParser.OperandContext ctx);
+	void enterMinus(@NotNull BananaCompilerParser.MinusContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BananaCompilerParser#operand}.
+	 * Exit a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperand(@NotNull BananaCompilerParser.OperandContext ctx);
+	void exitMinus(@NotNull BananaCompilerParser.MinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Times}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 */
+	void enterTimes(@NotNull BananaCompilerParser.TimesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Times}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 */
+	void exitTimes(@NotNull BananaCompilerParser.TimesContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Through}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 */
+	void enterThrough(@NotNull BananaCompilerParser.ThroughContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Through}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 */
+	void exitThrough(@NotNull BananaCompilerParser.ThroughContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code var}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar(@NotNull BananaCompilerParser.VarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code var}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar(@NotNull BananaCompilerParser.VarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code num}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void enterNum(@NotNull BananaCompilerParser.NumContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code num}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void exitNum(@NotNull BananaCompilerParser.NumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code const}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void enterConst(@NotNull BananaCompilerParser.ConstContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code const}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 */
+	void exitConst(@NotNull BananaCompilerParser.ConstContext ctx);
 }

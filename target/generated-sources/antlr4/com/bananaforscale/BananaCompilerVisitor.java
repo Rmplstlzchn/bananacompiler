@@ -18,11 +18,26 @@ public interface BananaCompilerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(@NotNull BananaCompilerParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BananaCompilerParser#expression}.
+	 * Visit a parse tree produced by the {@code declare}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(@NotNull BananaCompilerParser.ExpressionContext ctx);
+	T visitDeclare(@NotNull BananaCompilerParser.DeclareContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code define}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefine(@NotNull BananaCompilerParser.DefineContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code calc}
+	 * labeled alternative in {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCalc(@NotNull BananaCompilerParser.CalcContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BananaCompilerParser#declaration}.
 	 * @param ctx the parse tree
@@ -42,15 +57,52 @@ public interface BananaCompilerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMathoperation(@NotNull BananaCompilerParser.MathoperationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BananaCompilerParser#basicoperand}.
+	 * Visit a parse tree produced by the {@code Plus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx);
+	T visitPlus(@NotNull BananaCompilerParser.PlusContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BananaCompilerParser#operand}.
+	 * Visit a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperand(@NotNull BananaCompilerParser.OperandContext ctx);
+	T visitMinus(@NotNull BananaCompilerParser.MinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Times}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTimes(@NotNull BananaCompilerParser.TimesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Through}
+	 * labeled alternative in {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThrough(@NotNull BananaCompilerParser.ThroughContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code var}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar(@NotNull BananaCompilerParser.VarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code num}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNum(@NotNull BananaCompilerParser.NumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code const}
+	 * labeled alternative in {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConst(@NotNull BananaCompilerParser.ConstContext ctx);
 }
