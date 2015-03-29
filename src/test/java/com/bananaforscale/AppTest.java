@@ -72,6 +72,8 @@ public class AppTest
                 {"§ 4/y", "Error" + System.lineSeparator()},        //y not defined
                 {"§ y/4", "Error" + System.lineSeparator()},        //y not defined
                 {"§ 42/2/1", "Error" + System.lineSeparator()},      //only two operands allowed
+                {"§1+2", "3" + System.lineSeparator()},
+                {"§1+2+42", "45" + System.lineSeparator()}
         };
     }
 
