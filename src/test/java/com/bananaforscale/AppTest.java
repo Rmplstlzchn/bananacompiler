@@ -1,6 +1,8 @@
 package com.bananaforscale;
 
 import jasmin.ClassFile;
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +20,7 @@ import java.util.Scanner;
 /**
  * Hello world
  */
-public class App
+public class AppTest
 {
     private Path tempDir;
     @BeforeMethod
@@ -38,8 +40,8 @@ public class App
             throw new Error("Could not delete file <" + file + ">");
     }
 
-    @Test(dataProvider = "provide_code_exppectedText")
-    public void runningCode_outputsExptectedText(String code, String expectedText) throws Exception {
+    @Test(dataProvider = "provide_code_expectedText")
+    public void runningCode_outputsExpectedText(String code, String expectedText) throws Exception {
         String actualOutput = compileAndRun(code);
 
         Assert.assertEquals(actualOutput, expectedText);
@@ -53,6 +55,7 @@ public class App
     }
 
     private String compileAndRun(String code) throws Exception {
+        code = App.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), "", false);
         Path outputPath = tempDir.resolve(classFile.getClassName() + ".class");
