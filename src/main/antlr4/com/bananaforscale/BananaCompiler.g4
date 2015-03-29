@@ -1,27 +1,27 @@
 grammar BananaCompiler;
 
-prog: EXPRESSION ;
+prog: expression ;
 
-EXPRESSION: 	DECLARATION
-                | DEFINITION
-                | MATHOPERATION
+expression: 	declaration
+                | definition
+                | mathoperation
                 ;
 
-DECLARATION:	('new') VARIABLE ;
+declaration:	('new') VARIABLE ;
 
-DEFINITION:	    ('new')? VARIABLE '=' NUMBER ;
+definition:	    ('new')? lval=VARIABLE '=' rval=NUMBER ;
 
-MATHOPERATION:	OPERAND
-                | OPERAND BASICOPERATION OPERAND
+mathoperation:	operand
+                | lval=operand basicoperand rval=operand
                 ;
 
-BASICOPERATION:	'+' #Plus
-                | '-' #Minus
-                | '*' #Times
-                | '/' #Through
+basicoperand:	'+'
+                | '-'
+                | '*'
+                | '/'
                 ;
 
-OPERAND:	    VARIABLE
+operand:	    VARIABLE
                 | NUMBER
                 | CONSTANT
                 ;

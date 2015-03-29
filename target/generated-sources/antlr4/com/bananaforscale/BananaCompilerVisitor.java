@@ -17,4 +17,40 @@ public interface BananaCompilerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProg(@NotNull BananaCompilerParser.ProgContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(@NotNull BananaCompilerParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaration(@NotNull BananaCompilerParser.DeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#definition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefinition(@NotNull BananaCompilerParser.DefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#mathoperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMathoperation(@NotNull BananaCompilerParser.MathoperationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#basicoperand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBasicoperand(@NotNull BananaCompilerParser.BasicoperandContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BananaCompilerParser#operand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperand(@NotNull BananaCompilerParser.OperandContext ctx);
 }
