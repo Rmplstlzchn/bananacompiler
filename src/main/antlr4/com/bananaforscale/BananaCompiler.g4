@@ -1,6 +1,9 @@
 grammar BananaCompiler;
 
-prog: expression+;
+prog: programmpart+;
+
+programmpart:   '§' expression # Statements
+                ;
 
 expression: 	declaration #declare
                 | definition #define
@@ -10,12 +13,14 @@ expression: 	declaration #declare
 declaration:	'#' VARIABLE ;
 
 definition:	    '#'? lval=VARIABLE '=' rval=NUMBER ;
-
+   
 mathoperation:	operand
-                | lval=operand basicoperand rval=operand
+                | midoperation
                 ;
 
-basicoperand:	'+' #Plus
+midoperation:   lval=operand midop=midoperator rval=operand;
+
+midoperator:    '+' #Plus
                 | '-' #Minus
                 | '*' #Times
                 | '/' #Through

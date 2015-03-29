@@ -35,9 +35,28 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         return ("LDC "+ctx.getText());
     }
 
+    /**
+     * Calculate an operation where the math operator stands in the middle
+     */
     @Override
-    public String visitPlus(@NotNull BananaCompilerParser.PlusContext ctx) {
-        return "IADD";
+    public String visitMidoperation(@NotNull BananaCompilerParser.MidoperationContext ctx) {
+        String left = "LDC " + ctx.lval.getText() + System.lineSeparator();
+        String right = "LDC " + ctx.rval.getText() + System.lineSeparator();
+        String mid = ctx.midop.getText();
+        String error = "";
+        if(mid.equals("+")) {mid = "IADD";}
+        if(mid.equals("-")) {mid = "ISUB";}
+        if(mid.equals("*")) {mid = "IMUL";}
+        if(mid.equals("/")) {mid = "IDIV";
+            if(ctx.rval.getText().equals("0")) {
+                error = "you cannot divide by 0";
+            }
+        }
+        if(mid.equals("+") && mid.equals("-") && mid.equals("*") && mid.equals("/")) {
+            error = ctx.midop.getText() + " is not a valid operation";
+        }
+        if(error.equals("")) {return (left + right + mid);}
+        else{return error;}
     }
 
     @Override
