@@ -29,6 +29,6 @@ operand:	    VARIABLE #Var
                 | NUMBER #Num
                 ;
 
-NUMBER:		    [0-9]+ ;
+NUMBER:		    [0-9]+ ('.'([0-9])+)?;
 VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;
 WHITESPACE:     [ \t\n\r]+ -> skip;
