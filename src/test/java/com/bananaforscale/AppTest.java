@@ -1,7 +1,6 @@
 package com.bananaforscale;
 
 import jasmin.*;
-import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
