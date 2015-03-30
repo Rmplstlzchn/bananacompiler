@@ -10,7 +10,12 @@ import java.util.Map;
  */
 public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
 
+    private String errorMessage = "";
     private Map<String, Integer> variables = new HashMap<String, Integer>();
+
+    public String getErrorMessage(){
+        return errorMessage;
+    }
 
     /**
      * This is the visitor for the starting rule.
@@ -40,22 +45,22 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     public String visitDefinition(@NotNull BananaCompilerParser.DefinitionContext ctx) {
         if (ctx.declr.getText().length() > 0) {
             if (variables.containsKey(ctx.lval.getText()))
-                return "Error: Creating already declared variable.";
+                errorMessage = "Error: Creating already declared variable.";
             variables.put(ctx.lval.getText(), variables.size());
         }
         if (!variables.containsKey(ctx.lval.getText()))
-            return "Error: Assigning to undeclared variable";
+            errorMessage = "Error: Assigning to undeclared variable";
         return ctx.rval.getText() + System.lineSeparator() + "ISTORE " + variables.get(ctx.lval.getText());
     }
 
     @Override
      public String visitNum(@NotNull BananaCompilerParser.NumContext ctx) {
-        return ("LDC "+ ctx.getText());
+        return ("LDC "+ ctx.getText() + System.lineSeparator());
     }
 
     @Override
     public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {
-        return "ILOAD " + variables.get(ctx.getText());
+        return "ILOAD " + variables.get(ctx.getText() + System.lineSeparator());
     }
 
     /**
@@ -66,20 +71,20 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         String left = "LDC " + ctx.lval.getText() + System.lineSeparator();
         String right = "LDC " + ctx.rval.getText() + System.lineSeparator();
         String mid = ctx.midop.getText();
-        String error = "";
         if(mid.equals("+")) {mid = "IADD";}
         if(mid.equals("-")) {mid = "ISUB";}
         if(mid.equals("*")) {mid = "IMUL";}
         if(mid.equals("/")) {mid = "IDIV";
             if(ctx.rval.getText().equals("0")) {
-                error = "you cannot divide by 0";
+                //error message for division by zero
+                errorMessage = "Error: Division by zero";
             }
         }
-        if(mid.equals("+") && mid.equals("-") && mid.equals("*") && mid.equals("/")) {
-            error = ctx.midop.getText() + " is not a valid operation";
+        //error message for invalid math operation
+        if(!mid.equals("IADD") && !mid.equals("ISUB") && !mid.equals("IMUL") && !mid.equals("IDIV")) {
+            errorMessage = "Error: invalid math operation";
         }
-        if(error.equals("")) {return (left + right + mid);}
-        else{return error;}
+        return (left + right + mid);
     }
 
     @Override
