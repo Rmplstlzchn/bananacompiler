@@ -10,11 +10,16 @@ import java.util.Map;
  */
 public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
 
+    private boolean calculation = false;
     private String errorMessage = "";
     private Map<String, Integer> variables = new HashMap<String, Integer>();
 
     public String getErrorMessage(){
         return errorMessage;
+    }
+
+    public boolean getIsCalculation(){
+        return calculation;
     }
 
     /**
@@ -50,17 +55,17 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         }
         if (!variables.containsKey(ctx.lval.getText()))
             errorMessage = "Error: Assigning to undeclared variable";
-        return ctx.rval.getText() + System.lineSeparator() + "ISTORE " + variables.get(ctx.lval.getText());
+        return "ldc " + ctx.rval.getText() + System.lineSeparator() + "istore " + variables.get(ctx.lval.getText());
     }
 
     @Override
      public String visitNum(@NotNull BananaCompilerParser.NumContext ctx) {
-        return ("LDC "+ ctx.getText() + System.lineSeparator());
+        return ("ldc "+ ctx.getText() + System.lineSeparator());
     }
 
     @Override
-    public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {
-        return "ILOAD " + variables.get(ctx.getText() + System.lineSeparator());
+    public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {              //error message if not declared/defined
+        return "iload " + variables.get(ctx.getText()) + System.lineSeparator();
     }
 
     /**
@@ -68,20 +73,21 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
      */
     @Override
     public String visitMidoperation(@NotNull BananaCompilerParser.MidoperationContext ctx) {
-        String left = "LDC " + ctx.lval.getText() + System.lineSeparator();
-        String right = "LDC " + ctx.rval.getText() + System.lineSeparator();
+        calculation = true;
+        String left = "ldc " + ctx.lval.getText() + System.lineSeparator();
+        String right = "ldc " + ctx.rval.getText() + System.lineSeparator();
         String mid = ctx.midop.getText();
-        if(mid.equals("+")) {mid = "IADD";}
-        if(mid.equals("-")) {mid = "ISUB";}
-        if(mid.equals("*")) {mid = "IMUL";}
-        if(mid.equals("/")) {mid = "IDIV";
+        if(mid.equals("+")) {mid = "iadd";}
+        if(mid.equals("-")) {mid = "isub";}
+        if(mid.equals("*")) {mid = "imul";}
+        if(mid.equals("/")) {mid = "idiv";
             if(ctx.rval.getText().equals("0")) {
                 //error message for division by zero
                 errorMessage = "Error: Division by zero";
             }
         }
         //error message for invalid math operation
-        if(!mid.equals("IADD") && !mid.equals("ISUB") && !mid.equals("IMUL") && !mid.equals("IDIV")) {
+        if(!mid.equals("iadd") && !mid.equals("isub") && !mid.equals("imul") && !mid.equals("idiv")) {
             errorMessage = "Error: invalid math operation";
         }
         return (left + right + mid);

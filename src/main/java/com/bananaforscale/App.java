@@ -34,21 +34,30 @@ public class App
         ParseTree tree = parser.prog();
 
         BananaVisitor visitor = new BananaVisitor();
-        String text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage());
+        String text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
         return writeJasminFile(text);
+
+        //build.bat ausführen für jede Rechnung, danach von vorne
+        //jeweils Ergebnis in lokale Variable überschreiben, letztes Ergebnis nach Loop ausgeben
     }
 
-    private static String createJasminFile(String instructions, String errorMessage) {
+    private static String createJasminFile(String instructions, String errorMessage, boolean calculation) {
         String output;
-        if(!errorMessage.equals("")){output = "LDC \""+errorMessage+"\"\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";}
-        else{output = instructions + "\n" + "invokevirtual java/io/PrintStream/println(I)V\n";}
+        if (!errorMessage.equals("")) {
+            output = "getstatic java/lang/System/out Ljava/io/PrintStream;\n" + "ldc \"" + errorMessage + "\"\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";
+        } else {
+            if (calculation == true) {
+                output = "getstatic java/lang/System/out Ljava/io/PrintStream;\n" + instructions + "\n" + "invokevirtual java/io/PrintStream/println(I)V\n";
+            } else {
+                output = instructions + System.lineSeparator();
+            }
+        }
 
         return ".class public Test\n" +
                 ".super java/lang/Object\n" +
                 ".method public static main([Ljava/lang/String;)V\n" +
                 ".limit stack 100\n" +
                 ".limit locals 100\n" +
-                "getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
                 output +
                 "return\n" +
                 ".end method";
