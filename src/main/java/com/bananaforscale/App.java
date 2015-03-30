@@ -36,7 +36,6 @@ public class App
         BananaVisitor visitor = new BananaVisitor();
         String text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
         return writeJasminFile(text);
-
         //build.bat ausführen für jede Rechnung, danach von vorne
         //jeweils Ergebnis in lokale Variable überschreiben, letztes Ergebnis nach Loop ausgeben
     }
@@ -44,22 +43,22 @@ public class App
     private static String createJasminFile(String instructions, String errorMessage, boolean calculation) {
         String output;
         if (!errorMessage.equals("")) {
-            output = "getstatic java/lang/System/out Ljava/io/PrintStream;\n" + "ldc \"" + errorMessage + "\"\ninvokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";
+            output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + "ldc \"" + errorMessage + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V" + System.lineSeparator();
         } else {
             if (calculation == true) {
-                output = "getstatic java/lang/System/out Ljava/io/PrintStream;\n" + instructions + "\n" + "invokevirtual java/io/PrintStream/println(I)V\n";
+                output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + instructions + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(I)V" + System.lineSeparator();
             } else {
                 output = instructions + System.lineSeparator();
             }
         }
 
-        return ".class public Test\n" +
-                ".super java/lang/Object\n" +
-                ".method public static main([Ljava/lang/String;)V\n" +
-                ".limit stack 100\n" +
-                ".limit locals 100\n" +
+        return ".class public Test" + System.lineSeparator() +
+                ".super java/lang/Object" + System.lineSeparator() +
+                ".method public static main([Ljava/lang/String;)V" + System.lineSeparator() +
+                ".limit stack 100" + System.lineSeparator() +
+                ".limit locals 100" + System.lineSeparator() +
                 output +
-                "return\n" +
+                "return" + System.lineSeparator() +
                 ".end method";
     }
 

@@ -64,7 +64,9 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     @Override
-    public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {              //error message if not declared/defined
+    public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {
+        if (!variables.containsKey(ctx.getText()))
+            errorMessage = "Error: Accessing undeclared variable";
         return "iload " + variables.get(ctx.getText()) + System.lineSeparator();
     }
 
@@ -88,7 +90,7 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         }
         //error message for invalid math operation
         if(!mid.equals("iadd") && !mid.equals("isub") && !mid.equals("imul") && !mid.equals("idiv")) {
-            errorMessage = "Error: invalid math operation";
+            errorMessage = "Error: Invalid math operation";
         }
         return (left + right + mid);
     }
@@ -99,6 +101,6 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
             return nextResult;
         else if (nextResult == null)
             return aggregate;
-        return aggregate + "\n" + nextResult;
+        return aggregate + System.lineSeparator() + nextResult;
     }
 }
