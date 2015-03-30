@@ -76,8 +76,24 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     @Override
     public String visitMidoperation(@NotNull BananaCompilerParser.MidoperationContext ctx) {
         calculation = true;
-        String left = "ldc " + ctx.lval.getText() + System.lineSeparator();
-        String right = "ldc " + ctx.rval.getText() + System.lineSeparator();
+
+        //check if operand is var or num
+        String left, right;
+        try{
+            Double.parseDouble(ctx.lval.getText());
+            left = visitNum((BananaCompilerParser.NumContext) ctx.lval);
+        }
+        catch(NumberFormatException nfe){
+            left = visitVar((BananaCompilerParser.VarContext) ctx.lval);
+        }
+        try{
+            Double.parseDouble(ctx.rval.getText());
+            right = visitNum((BananaCompilerParser.NumContext) ctx.rval);
+        }
+        catch(NumberFormatException nfe){
+            right = visitVar((BananaCompilerParser.VarContext) ctx.rval);
+        }
+
         String mid = ctx.midop.getText();
         if(mid.equals("+")) {mid = "iadd";}
         if(mid.equals("-")) {mid = "isub";}

@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.io.File;
+import java.io.PrintStream;
+
 /**
  * Hello world!
  *
@@ -33,17 +36,22 @@ public class App
 
         ParseTree tree = parser.prog();
 
+        String text, result;
+        //Loop (while not last line of source code && error != "writing jasmin file failed"
         BananaVisitor visitor = new BananaVisitor();
-        String text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
-        return writeJasminFile(text);
-        //build.bat ausführen für jede Rechnung, danach von vorne
-        //jeweils Ergebnis in lokale Variable überschreiben, letztes Ergebnis nach Loop ausgeben
+        text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
+        result = writeJasminFile(text); //override last result, always latest result stored in variable
+        result = result + executeJasmin();
+        //Loop end
+
+        //return latest result
+        return result;
     }
 
     private static String createJasminFile(String instructions, String errorMessage, boolean calculation) {
         String output;
         if (!errorMessage.equals("")) {
-            output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + "ldc \"" + errorMessage + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V" + System.lineSeparator();
+            output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + "ldc \"" + errorMessage + "\"" + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V" + System.lineSeparator();
         } else {
             if (calculation == true) {
                 output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + instructions + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(I)V" + System.lineSeparator();
@@ -80,9 +88,24 @@ public class App
                 pw.close();
             }
             else{
-                return "writing jasmin file failed";
+                return "writing jasmin file failed\n";
             }
         }
-        return "successful";
+        return "writing jasmin code successfully\n";
+    }
+
+    private static String executeJasmin(){
+        try {
+            Process proc = null;
+            String file_path = null;
+
+            file_path = new String("build.bat");
+
+            proc = Runtime.getRuntime().exec("cmd /c start  " + file_path);
+            return "executed successfully\n";
+        }
+        catch(Exception e){
+            return "executing jasmin file failed\n ("+e.getMessage()+")";
+        }
     }
 }
