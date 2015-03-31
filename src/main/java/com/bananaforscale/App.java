@@ -1,14 +1,15 @@
 package com.bananaforscale;
 
+import jasmin.ClassFile;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 /**
  * Hello world!
@@ -26,7 +27,7 @@ public class App
     }
 
 
-    public static String compile(ANTLRInputStream input) {
+    public static String compile(ANTLRInputStream input) throws Exception {
         BananaCompilerLexer lexer = new BananaCompilerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         BananaCompilerParser parser = new BananaCompilerParser(tokens);
@@ -37,8 +38,8 @@ public class App
         //Loop (while not last line of source code && error != "writing jasmin file failed"
         BananaVisitor visitor = new BananaVisitor();
         text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
-        result = writeJasminFile(text); //override last result, always latest result stored in variable
-        result = result + executeJasmin();
+        writeJasminFile(text); //override last result, always latest result stored in variable
+        result = executeJasmin(text);
         //Loop end
 
         //return latest result
@@ -70,12 +71,12 @@ public class App
     /**
      * writes the generated jasmin instructions in the file jasmin.j (path: bananacompiler/jasmin.j)
      */
-    private static String writeJasminFile(String text){
+    private static void writeJasminFile(String text){
 
         PrintWriter pw = null;
 
         try {
-            pw = new PrintWriter(new BufferedWriter(new FileWriter("jasmin.j")));
+            pw = new PrintWriter(new BufferedWriter(new FileWriter("code/jasmin.j")));
             pw.println(text);
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -84,25 +85,63 @@ public class App
                 pw.flush();
                 pw.close();
             }
-            else{
-                return "writing jasmin file failed\n";
-            }
         }
-        return "writing jasmin code successfully\n";
     }
 
-    private static String executeJasmin(){
+    private static String executeJasmin(String code) throws Exception {
+        createTempDir();
+        ClassFile classFile = new ClassFile();
         try {
-            Process proc = null;
-            String file_path = null;
-
-            file_path = new String("build.bat");
-
-            proc = Runtime.getRuntime().exec("cmd /c start  " + file_path);
-            return "executed successfully\n";
+            classFile.readJasmin(new StringReader(code), "", false);
+        } catch (Exception e) {
+            return "Failed to read bytecode: " + e.getMessage();
         }
-        catch(Exception e){
-            return "executing jasmin file failed\n ("+e.getMessage()+")";
+        Path outputPath = tempDir.resolve(classFile.getClassName() + ".class");
+        try {
+            classFile.write(Files.newOutputStream(outputPath));
+        } catch (Exception e) {
+            return "Failed to write program: " + e.getMessage();
         }
+        String result = runJavaClass(tempDir, classFile.getClassName());
+        delete(tempDir.toFile());
+        return result;
+    }
+    private static Path tempDir;
+    private static void createTempDir() throws IOException {
+        tempDir = Files.createTempDirectory("compilerTest");
+    }
+    private static void delete(File file) {
+        if (file.isDirectory()) {
+            //directory is empty, then delete it
+            if (file.list().length == 0) {
+                file.delete();
+                System.out.println("Directory is deleted : "
+                        + file.getAbsolutePath());
+            } else {
+                //list all the directory contents
+                String files[] = file.list();
+                for (String temp : files) {
+                    //construct the file structure
+                    File fileDelete = new File(file, temp);
+
+                    //recursive delete
+                    delete(fileDelete);
+                }
+                //check the directory again, if empty then delete it
+                if (file.list().length == 0) {
+                    file.delete();
+                    System.out.println("Directory is deleted : "
+                            + file.getAbsolutePath());
+                }
+            }
+        } else {
+            //if file, then delete it
+            file.delete();
+        }
+    }
+    private static String runJavaClass(Path dir, String className) throws Exception {
+        Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
+        InputStream in = process.getInputStream();
+        return new Scanner(in).useDelimiter("\\A").next();
     }
 }
