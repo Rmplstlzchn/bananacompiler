@@ -61,7 +61,7 @@
               <!-- Jar file entry point -->
               <addClasspath>true</addClasspath>
               <classpathPrefix>dependency-jars</classpathPrefix>
-              <mainClass>com.bananaforscale.App</mainClass>
+              <mainClass>com.bananaforscale.Compiler</mainClass>
             </manifest>
           </archive>
         </configuration>

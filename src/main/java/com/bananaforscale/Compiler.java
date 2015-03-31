@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Hello world!
  *
  */
-public class App 
+public class Compiler
 {
     public static void main(String[] args) throws Exception {
         ANTLRInputStream input;

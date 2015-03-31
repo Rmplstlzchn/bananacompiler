@@ -1,6 +1,5 @@
 package com.bananaforscale;
 
-import jasmin.*;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -10,16 +9,13 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
 /**
  * Hello world
  */
-public class AppTest
+public class CompilerTest
 {
     private Path tempDir;
     @BeforeMethod
@@ -62,7 +58,7 @@ public class AppTest
 
     @Test(dataProvider = "provide_code_expectedText")
     public void runningCode_outputsExpectedText(String code, String expectedText) throws Exception {
-        Assert.assertEquals(App.compile(new ANTLRInputStream(code)), expectedText);
+        Assert.assertEquals(Compiler.compile(new ANTLRInputStream(code)), expectedText);
     }
     @DataProvider
     public Object[][] provide_code_expectedText() {
