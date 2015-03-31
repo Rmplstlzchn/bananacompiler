@@ -19,6 +19,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <antlr4.version>4.5</antlr4.version>
   </properties>
 
   <dependencies>
@@ -31,7 +32,7 @@
 	<dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4</artifactId>
-      <version>4.5</version>
+      <version>${antlr4.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -48,10 +49,53 @@
   
   <build>
     <plugins>
+      <!-- Make this jar executable -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+          </excludes>
+          <archive>
+            <manifest>
+              <!-- Jar file entry point -->
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>dependency-jars</classpathPrefix>
+              <mainClass>com.bananaforscale.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <!-- Copy project dependency -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.5.1</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <!-- exclude junit, we need runtime dependency only -->
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>4.5</version>
+        <version>${antlr4.version}</version>
+          <configuration>
+              <arguments>
+                  <argument>-visitor</argument>
+              </arguments>
+              <visitor>true</visitor>
+          </configuration>
         <executions>
           <execution>
             <id>antlr</id>
