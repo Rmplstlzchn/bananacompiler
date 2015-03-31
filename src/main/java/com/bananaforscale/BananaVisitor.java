@@ -13,22 +13,25 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     private Map<String, Integer> variables = new HashMap<String, Integer>();
 
     /**
-     *
-     * @return
+     * This method checks is used to check whether an error message is set or not.
+     * @return: an error message if set, else an empty String
      */
-    public String getErrorMessage(){
-        return errorMessage;
-    }
+    public String getErrorMessage(){return errorMessage;}
 
+    /**
+     * This method visits the starting rule of the Banan4S grammar and visits the children.
+     * @param ctx: the context is given as input parameter
+     * @return: the result given by the visited children
+     */
     @Override
     public String visitProg(BananaCompilerParser.ProgContext ctx) {
         return visitChildren(ctx);
     }
 
     /**
-     *
-     * @param ctx
-     * @return
+     * This method visits a command consisting of a math operation with at least 3 operands and visits the children.
+     * @param ctx: the context is given as input parameter
+     * @return: the result given by the visited children
      */
     @Override
     public String visitMulti(BananaCompilerParser.MultiContext ctx) {
@@ -36,8 +39,10 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This method visits the initialitation of a variable which stores a new value for this variable.
+     * If the variable does not exist yet, it is created in the table of variables beforehand.
+     * @param ctx: the context is given as input parameter
+     * @return: jasmin code to store the value to the according variable
      */
     @Override
     public String visitInit(BananaCompilerParser.InitContext ctx) {
@@ -58,9 +63,10 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     /**
-     *
-     * @param ctx
-     * @return
+     * This method visits the calculation of a math operation where the operand stands in the middle.
+     * This method does not do a calculation, but it creates the jasmin code which can perform the math operation
+     * @param ctx: the context is given as input parameter
+     * @return: a String consisting of both children and the midoperation symbol written in jasmin code
      */
     @Override
     public String visitCalc(BananaCompilerParser.CalcContext ctx) {
@@ -91,9 +97,9 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     /**
-     *
-     * @param ctx
-     * @return
+     * This method visits a number and returns its value.
+     * @param ctx: the context is given as input parameter
+     * @return: jasmin code which loads the according number on the stack
      */
     @Override
      public String visitNum(@NotNull BananaCompilerParser.NumContext ctx) {
@@ -104,17 +110,26 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     }
 
     /**
-     *
-     * @param ctx
-     * @return
+     * This method visits a variable and returns its value (if given).
+     * If the variable does not exist, an error is given.
+     * @param ctx: the context is given as input parameter
+     * @return: either the value of the variable or nothing if the variable does not exist
      */
     @Override
     public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {
-        if (!variables.containsKey(ctx.getText()))
+        if (!variables.containsKey(ctx.getText())) {
             errorMessage = "Error: Accessing undeclared variable";
+            return "";
+        }
         return "fload " + variables.get(ctx.getText()) + System.lineSeparator();
     }
 
+    /**
+     * This method combines two Strings
+     * @param aggregate: first String to be combined
+     * @param nextResult: second String to be combined
+     * @return: if one of the Strings is null, the other one is returned, else the combined String is returned
+     */
     @Override
     protected String aggregateResult(String aggregate, String nextResult) {
         if (aggregate == null)
