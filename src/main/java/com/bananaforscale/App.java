@@ -88,7 +88,7 @@ public class App
         }
     }
 
-    private static String executeJasmin(String code) throws Exception {
+    public static String executeJasmin(String code) throws Exception {
         createTempDir();
         ClassFile classFile = new ClassFile();
         try {
@@ -107,10 +107,10 @@ public class App
         return result;
     }
     private static Path tempDir;
-    private static void createTempDir() throws IOException {
+    public static void createTempDir() throws IOException {
         tempDir = Files.createTempDirectory("compilerTest");
     }
-    private static void delete(File file) {
+    public static void delete(File file) {
         if (file.isDirectory()) {
             //directory is empty, then delete it
             if (file.list().length == 0) {

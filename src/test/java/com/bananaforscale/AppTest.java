@@ -28,66 +28,72 @@ public class AppTest
     }
     @AfterMethod
     public void deleteTempDir() {
-        deleteRecursive(tempDir.toFile());
+        delete(tempDir.toFile());
     }
+    private void delete(File file) {
+        if (file.isDirectory()) {
+            //directory is empty, then delete it
+            if (file.list().length == 0) {
+                file.delete();
+                System.out.println("Directory is deleted : "
+                        + file.getAbsolutePath());
+            } else {
+                //list all the directory contents
+                String files[] = file.list();
+                for (String temp : files) {
+                    //construct the file structure
+                    File fileDelete = new File(file, temp);
 
-    private void deleteRecursive(File file) {
-        if (file.isDirectory())
-            for (File child : file.listFiles())
-                deleteRecursive(child);
-        if (file.delete())
-            throw new Error("Could not delete file <" + file + ">");
+                    //recursive delete
+                    delete(fileDelete);
+                }
+                //check the directory again, if empty then delete it
+                if (file.list().length == 0) {
+                    file.delete();
+                    System.out.println("Directory is deleted : "
+                            + file.getAbsolutePath());
+                }
+            }
+        } else {
+            //if file, then delete it
+            file.delete();
+        }
     }
 
     @Test(dataProvider = "provide_code_expectedText")
     public void runningCode_outputsExpectedText(String code, String expectedText) throws Exception {
-        String actualOutput = compileAndRun(code);
-
-        Assert.assertEquals(actualOutput, expectedText);
+        Assert.assertEquals(App.compile(new ANTLRInputStream(code)), expectedText);
     }
     @DataProvider
     public Object[][] provide_code_expectedText() {
         return new Object[][] {
                 {"1+2", "3" + System.lineSeparator()},
-                {"1+x", "4" + System.lineSeparator()},            //x=2
-                {"1+y", "Error" + System.lineSeparator()},        //y not defined
+                {"1+x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"1+y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 {"1+2+42", "Error" + System.lineSeparator()},     //only two operands allowed
                 {"2-1", "1" + System.lineSeparator()},
-                {"5-x", "3" + System.lineSeparator()},            //x=2
+                {"5-x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
                 {"x-5", "3" + System.lineSeparator()},            //x=2
-                {"5-y", "Error" + System.lineSeparator()},        //y not defined
-                {"y-5", "Error" + System.lineSeparator()},        //y not defined
+                {"5-y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y-5", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 {"42-2-1", "Error" + System.lineSeparator()},     //only two operands allowed
                 {"1*2", "2" + System.lineSeparator()},
-                {"1*x", "2" + System.lineSeparator()},            //x=2
-                {"x*1", "2" + System.lineSeparator()},            //x=2
-                {"1*y", "Error" + System.lineSeparator()},        //y not defined
-                {"y*1", "Error" + System.lineSeparator()},        //y not defined
+                {"1*x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"x*1", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"1*y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y*1", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 {"1*2*42", "Error" + System.lineSeparator()},     //only two operands allowed
                 {"2/1", "2" + System.lineSeparator()},
                 {"2/0", "Error: Division by zero" + System.lineSeparator()},        //division by zero is not allowed
-                {"4/x", "2" + System.lineSeparator()},            //x=2
-                {"x/4", "2" + System.lineSeparator()},            //x=2
-                {"4/y", "Error" + System.lineSeparator()},        //y not defined
-                {"y/4", "Error" + System.lineSeparator()},        //y not defined
+                {"4/x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"x/4", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"4/y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y/4", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 {"42/2/1", "Error" + System.lineSeparator()},     //only two operands allowed
                 {"1+2", "3" + System.lineSeparator()},
+                {"Error: Assigning to undeclared variable", "Error: Invalid math operation" + System.lineSeparator()},
+
                 {"1+2+42", "45" + System.lineSeparator()}         //result will be 3 because grammar cannot read more than two operands
         };
-    }
-
-    private String compileAndRun(String code) throws Exception {
-        code = App.compile(new ANTLRInputStream(code));
-        ClassFile classFile = new ClassFile();
-        classFile.readJasmin(new StringReader(code), "", false);
-        Path outputPath = tempDir.resolve(classFile.getClassName() + ".class");
-        classFile.write(Files.newOutputStream(outputPath));
-        return runJavaClass(tempDir, classFile.getClassName());
-    }
-
-    private String runJavaClass(Path dir, String className) throws Exception {
-        Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
-        InputStream in = process.getInputStream();
-        return new Scanner(in).useDelimiter("\\A").next();
     }
 }
