@@ -63,30 +63,30 @@ public class CompilerTest
     @DataProvider
     public Object[][] provide_code_expectedText() {
         return new Object[][] {
-                {"1+2", "3" + System.lineSeparator()},
-                {"1+x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"1+y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"1.0+2.0", "3.0" + System.lineSeparator()},
+                {"1.0+x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"1.0+y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 //{"1+2+42", "Error" + System.lineSeparator()},     //only two operands allowed
-                {"2-1", "1" + System.lineSeparator()},
-                {"5-x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"x-5", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"5-y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
-                {"y-5", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"2.0-1.0", "1.0" + System.lineSeparator()},
+                {"5.0-x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"x-5.0", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"5.0-y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y-5.0", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 //{"42-2-1", "Error" + System.lineSeparator()},     //only two operands allowed
-                {"1*2", "2" + System.lineSeparator()},
-                {"1*x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"x*1", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"1*y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
-                {"y*1", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"1.0*2.0", "2.0" + System.lineSeparator()},
+                {"1.0*x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"x*1.0", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"1.0*y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y*1.0", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 //{"1*2*42", "Error" + System.lineSeparator()},     //only two operands allowed
-                {"2/1", "2" + System.lineSeparator()},
-                {"2/0", "Error: Division by zero" + System.lineSeparator()},        //division by zero is not allowed
-                {"4/x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"x/4", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
-                {"4/y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
-                {"y/4", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"2.0/1.0", "2.0" + System.lineSeparator()},
+                {"2.0/0.0", "Error: Division by zero" + System.lineSeparator()},        //division by zero is not allowed
+                {"4.0/x", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"x/4.0", "Error: Accessing undeclared variable" + System.lineSeparator()},            //x=2
+                {"4.0/y", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
+                {"y/4.0", "Error: Accessing undeclared variable" + System.lineSeparator()},        //y not defined
                 //{"42/2/1", "Error" + System.lineSeparator()},     //only two operands allowed
-                {"1+2", "3" + System.lineSeparator()},
+                {"1.0+2.0", "3.0" + System.lineSeparator()},
                 //{"1+2+42", "45" + System.lineSeparator()}         //result will be 3 because grammar cannot read more than two operands
         };
     }
