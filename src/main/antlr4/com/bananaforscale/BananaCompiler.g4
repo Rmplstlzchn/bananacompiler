@@ -19,11 +19,7 @@ mathoperation:	operand
 				| '(' mathoperation ')'
                 ;
 
-midoperation:   lval=operand midop=midoperator rval=operand 
-				| mathoperation midop=midoperator rval=operand
-				| lval=operand midop=midoperator mathoperation
-				| mathoperation midop=midoperator mathoperation
-				;
+midoperation:   mathoperation midop=midoperator mathoperation ;
 
 midoperator:    '+' #Plus
                 | '-' #Minus
