@@ -3,35 +3,18 @@ grammar BananaCompiler ;
 prog: expression ;
 
 expression: 	expression NEWLINE expression
-				| declaration #Declare
-                | definition #Define
-                | mathoperation #Calc
+				| lval=VARIABLE '=' mathoperation
+                | 'print' lval=VARIABLE
                 ;
 
-declaration:	'#' lval=VARIABLE ;
-
-definition:	    declr='#'? lval=VARIABLE '=' rval=NUMBER 
-				| declr='#'? lval=VARIABLE '=' mathoperation
-				;
-
-mathoperation:	operand
-                | midoperation
+mathoperation:	mathoperation midop=MIDOPERATOR mathoperation
 				| '(' mathoperation ')'
-                ;
-
-midoperation:   mathoperation midop=midoperator mathoperation ;
-
-midoperator:    '+' #Plus
-                | '-' #Minus
-                | '*' #Times
-                | '/' #Through
-                ;
-
-operand:	    VARIABLE #Var
-                | NUMBER #Num
+				| NUMBER
+				| VARIABLE
                 ;
 
 NUMBER:		    [0-9]+ ('.'([0-9])*)? ;
 VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;
+MIDOPERATOR:	[+-*/] ;
 WHITESPACE:     [ \t\r]+ -> skip ;
 NEWLINE:		'\n'+ ;
