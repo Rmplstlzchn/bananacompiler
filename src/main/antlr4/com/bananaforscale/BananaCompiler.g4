@@ -1,16 +1,16 @@
 grammar BananaCompiler ;
 
-prog: expression ;
+prog: 			expression ;
 
-expression: 	expression NEWLINE expression
-				| lval=VARIABLE '=' mathoperation
-                | 'print' lval=VARIABLE
+expression: 	expression NEWLINE expression #Multi
+				| lval=VARIABLE '=' mathoperation #Init
+                | 'print' lval=VARIABLE #Print
                 ;
 
-mathoperation:	mathoperation midop=MIDOPERATOR mathoperation
-				| '(' mathoperation ')'
-				| NUMBER
-				| VARIABLE
+mathoperation:	mathoperation midop=MIDOPERATOR mathoperation #Calc
+				| '(' mathoperation ')' #Parenthesis
+				| NUMBER #Num
+				| VARIABLE #Var
                 ;
 
 NUMBER:		    [0-9]+ ('.'([0-9])*)? ;
