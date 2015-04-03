@@ -37,7 +37,7 @@ public class Compiler
         String text, result;
         //Loop (while not last line of source code && error != "writing jasmin file failed"
         BananaVisitor visitor = new BananaVisitor();
-        text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage(), visitor.getIsCalculation());
+        text = createJasminFile((visitor.visit(tree)), visitor.getErrorMessage());
         writeJasminFile(text); //override last result, always latest result stored in variable
         result = executeJasmin(text);
         //Loop end
@@ -46,16 +46,13 @@ public class Compiler
         return result;
     }
 
-    private static String createJasminFile(String instructions, String errorMessage, boolean calculation) {
+    private static String createJasminFile(String instructions, String errorMessage) {
         String output;
         if (!errorMessage.equals("")) {
             output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + "ldc \"" + errorMessage + "\"" + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V" + System.lineSeparator();
         } else {
-            if (calculation == true) {
                 output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + instructions + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(I)V" + System.lineSeparator();
-            } else {
                 output = instructions + System.lineSeparator();
-            }
         }
 
         return ".class public Test" + System.lineSeparator() +

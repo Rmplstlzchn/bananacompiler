@@ -15,6 +15,10 @@ mathoperation:	mathoperation midop=MIDOPERATOR mathoperation #Calc
 
 NUMBER:		    [0-9]+ ('.'([0-9])*)? ;
 VARIABLE:	    [a-zA-Z_][a-zA-Z0-9_]* ;
-MIDOPERATOR:	[+-*/] ;
+MIDOPERATOR:	'+'
+				| '-'
+				| '*'
+				| '/'
+				;
 WHITESPACE:     [ \t\r]+ -> skip ;
 NEWLINE:		'\n'+ ;
