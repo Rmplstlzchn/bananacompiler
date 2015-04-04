@@ -132,7 +132,7 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
             errorMessage = "Accessing undeclared variable";
             return "";
         }
-        return "fload " + variables.get(ctx.getText()) + System.lineSeparator();
+        return "fload " + variables.get(ctx.getText());
     }
 
     /**
