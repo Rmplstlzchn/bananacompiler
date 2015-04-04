@@ -10,13 +10,20 @@ import java.util.Map;
  */
 public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     private String errorMessage = "";
+    private int lineNumber = 1;
     private Map<String, Integer> variables = new HashMap<String, Integer>();
 
     /**
      * This method checks is used to check whether an error message is set or not.
      * @return: an error message if set, else an empty String
      */
-    public String getErrorMessage(){return errorMessage;}
+    public String getErrorMessage() {
+        if (!errorMessage.equals("")) {
+            return ("Error in line " + lineNumber + ": " + errorMessage);
+        } else {
+            return "";
+        }
+    }
 
     /**
      * This method visits the starting rule of the Banan4S grammar and visits the children.
@@ -35,7 +42,11 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
      */
     @Override
     public String visitMulti(BananaCompilerParser.MultiContext ctx) {
-        return visitChildren(ctx);
+        if(errorMessage.equals("")) {
+            lineNumber++;
+            return visitChildren(ctx);
+        }
+        return "";
     }
 
     /**
@@ -49,7 +60,7 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         if (!variables.containsKey(ctx.lval.getText())) {
             variables.put(ctx.lval.getText(), variables.size());
         }
-        return visitChildren(ctx) + "fstore " + variables.get(ctx.lval.getText()) + System.lineSeparator();
+        return visitChildren(ctx) + System.lineSeparator() + "fstore " + variables.get(ctx.lval.getText());
     }
 
     /**
@@ -81,9 +92,9 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         else if(mid.equals("/"))
             mid = "fdiv";
         else
-            errorMessage = "Error: Invalid math operation";
+            errorMessage = "Invalid math operation";
 
-        return children + mid + System.lineSeparator();
+        return children  + System.lineSeparator() + mid;
     }
 
     /**
@@ -106,7 +117,7 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
         String number = ctx.getText();
         if (!ctx.getText().contains("."))
             number += ".0";
-        return ("ldc "+ number + System.lineSeparator());
+        return ("ldc "+ number);
     }
 
     /**
@@ -118,7 +129,7 @@ public class BananaVisitor extends BananaCompilerBaseVisitor<String> {
     @Override
     public String visitVar(@NotNull BananaCompilerParser.VarContext ctx) {
         if (!variables.containsKey(ctx.getText())) {
-            errorMessage = "Error: Accessing undeclared variable";
+            errorMessage = "Accessing undeclared variable";
             return "";
         }
         return "fload " + variables.get(ctx.getText()) + System.lineSeparator();

@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -26,10 +27,12 @@ public class Compiler
      */
     public static void main(String[] args) throws Exception {
         ANTLRInputStream input;
-        if (args.length > 0)
+        if (args.length > 0) {
             input = new ANTLRFileStream(args[0]);
-        else
+        }
+        else {
             input = new ANTLRFileStream("code/demo.code");
+        }
         System.out.println(compile(input));
     }
 
@@ -54,14 +57,13 @@ public class Compiler
         ParseTree tree = parser.prog();
 
         String text, result;
-        //Loop (while not last line of source code && error != "writing jasmin file failed"
         BananaVisitor visitor = new BananaVisitor();
-        text = createJasminCode((visitor.visit(tree)), visitor.getErrorMessage());
-        writeJasminFile(text); //override last result, always latest result stored in variable
-        result = executeJasmin(text);
-        //Loop end
 
-        //return latest result
+        text = createJasminCode((visitor.visit(tree)), visitor.getErrorMessage());
+        writeJasminFile(text);
+
+        result = executeJasmin(text);
+
         return result;
     }
 
@@ -76,7 +78,6 @@ public class Compiler
         if (!errorMessage.equals("")) {
             output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + "ldc \"" + errorMessage + "\"" + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V" + System.lineSeparator();
         } else {
-            //output = "getstatic java/lang/System/out Ljava/io/PrintStream;" + System.lineSeparator() + instructions + System.lineSeparator() + "invokevirtual java/io/PrintStream/println(I)V" + System.lineSeparator();
             output = instructions + System.lineSeparator();
         }
 
@@ -189,6 +190,14 @@ public class Compiler
     private static String runJavaClass(Path dir, String className) throws Exception {
         Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
         InputStream in = process.getInputStream();
-        return new Scanner(in).useDelimiter("\\A").next();
+        try {
+            return new Scanner(in).useDelimiter("\\A").next();
+        }
+        catch(NoSuchElementException nsee) {
+            return "no output";
+        }
+        catch(Exception e){
+            return e.getMessage();
+        }
     }
 }
