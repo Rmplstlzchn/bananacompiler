@@ -16,6 +16,7 @@ import java.util.Scanner;
  * Authors: Jonas Buerkel, Jannik Franz, Stefan Hill
  * Group: Banana For Scale
  * DHBW Stuttgart, TINF13A
+ * Software Engineering class, semester 4
  *
  */
 public class Compiler
