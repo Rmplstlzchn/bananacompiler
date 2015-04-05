@@ -33,7 +33,13 @@ public class Compiler
         else {
             input = new ANTLRFileStream("code/demo.code");
         }
-        System.out.println(compile(input));
+        String output = compile(input);
+        if(output.equals("no output")){
+            System.out.println("Compiling successful! (no output)");
+        }
+        else {
+            System.out.println(output);
+        }
     }
 
     /**

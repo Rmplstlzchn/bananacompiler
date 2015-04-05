@@ -2,14 +2,14 @@ grammar BananaCompiler ;
 
 prog: 			expression ;
 
-expression: 	(mathoperation|init) NEWLINE expression #Multi
-                | init
+expression: 	init NEWLINE expression #Multi
+                | init #initialization
                 | 'print' lval=VARIABLE #Print
                 ;
 
-init:           lval=VARIABLE '=' mathoperation
+init:           lval=VARIABLE '=' op=mathoperation;
 
-mathoperation:	mathoperation midop=MIDOPERATOR mathoperation #Calc
+mathoperation:	loperand=mathoperation midop=MIDOPERATOR roperand=mathoperation #Calc
 				| '(' mathoperation ')' #Parenthesis
 				| NUMBER #Num
 				| VARIABLE #Var
